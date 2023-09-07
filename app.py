@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import text
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 
@@ -55,13 +55,14 @@ def show_user_details(user_id):
     """show user profile"""
     
     user = User.query.get_or_404(user_id)
+    posts = user.posts
     print(user.image_url)
-    return render_template('user_profile.html', user=user)
+    return render_template('user_profile.html', user=user, posts=posts)
 
 @app.route('/users/<int:user_id>/edit')
 def edit_user_form(user_id):
     """show form to edit a user"""
-
+    # need to refactor to db.session.get(User, user_id)
     user = User.query.get(user_id)
     return render_template('edit_user.html', user=user)
 
@@ -70,13 +71,12 @@ def edit_user(user_id):
     """takes user data from form and update database with new info"""
 
     user = User.query.get(user_id)
-
     first = request.form['first_name']
     first = first if first else user.first_name
     last = request.form['last_name']
     last = last if last else user.last_name
     img = request.form['img_url']
-    img = img if img else user.image_url
+    img = img if img else user.image_url 
 
     user.first_name = first
     user.last_name = last
@@ -95,6 +95,18 @@ def delete_user(user_id):
     User.query.filter_by(id=user_id).delete()
 
     db.session.commit()
-
     return redirect('/users')
-    
+
+@app.route('/users/<int:user_id>/posts/new')
+def add_new_post(user_id):
+    """show form to add new post for current user"""
+
+    user = db.session.get(User, user_id)
+    return render_template('/new_post.html', user=user)
+
+# @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
+# def add_new_post(user_id):
+#     """takes form data and creates post for current user"""
+
+#     user = db.session.get(User, user_id)
+#     return redirect('posts.html', user=user)

@@ -17,5 +17,17 @@
         <button>DELETE</button>
     </form>
 
+    <section class="user_posts">
+        <h3>Posts</h3>
+        <ul id="posts">
+            {% for post in posts %}
+                <li>{{post.title}}</li>
+            {% endfor %}
+        </ul>
+        <form action="/users/{{user.id}}/posts/new">
+            <button>Add Post</button>
+        </form>
+    </section>
+
 {% endblock %}
 
