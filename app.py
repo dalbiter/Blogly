@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import text
 from models import db, connect_db, User, Post
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -91,6 +92,7 @@ def edit_user(user_id):
 
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
 def delete_user(user_id):
+    """deletes current user from database"""
 
     User.query.filter_by(id=user_id).delete()
 
@@ -98,15 +100,67 @@ def delete_user(user_id):
     return redirect('/users')
 
 @app.route('/users/<int:user_id>/posts/new')
-def add_new_post(user_id):
+def new_post_form(user_id):
     """show form to add new post for current user"""
 
     user = db.session.get(User, user_id)
     return render_template('/new_post.html', user=user)
 
-# @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
-# def add_new_post(user_id):
-#     """takes form data and creates post for current user"""
+######################################################################################
 
-#     user = db.session.get(User, user_id)
-#     return redirect('posts.html', user=user)
+
+@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
+def add_new_post(user_id):
+    """takes form data and creates post for current user"""
+
+    user = db.session.get(User, user_id)
+    title = request.form['title']
+    content = request.form['content']
+
+    new_post = Post(title=title, content=content, created_at=datetime.now(), user_id=user_id)
+
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(f'/users/{user_id}')
+
+@app.route('/posts/<int:post_id>')
+def show_posts(post_id):
+    """show post details for selected post"""
+    
+    post = db.session.get(Post, post_id)
+    return render_template('post_details.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit')
+def edit_post_form(post_id):
+    """show edit post form"""
+
+    post = db.session.get(Post, post_id)
+    return render_template('edit_post.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def edit_post(post_id):
+    """take form data and edti post"""
+
+    post = db.session.get(Post, post_id)
+    title = request.form['title']
+    title = title if title else post.title
+    content = request.form['content']
+    content = content if content else post.content
+
+    post.title = title
+    post.content = content
+
+    db.session.add(post)
+    db.session.commit()
+    return redirect(f'/posts/{post.id}')
+
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    """deletes selected post from page and from database"""
+
+    post = db.session.get(Post, post_id)
+    user_id = post.user.id
+    Post.query.filter_by(id=post_id).delete()
+    
+    db.session.commit()
+    return redirect(f'/users/{user_id}')

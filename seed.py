@@ -13,10 +13,10 @@ u2 = User(first_name='Cort', last_name='Albiter', image_url='https://img.freepik
 u3 = User(first_name='Test', last_name='User')
 u4 = User(first_name='Test', last_name='User2')
 
-p1 = Post(title='My First Post', content='This is the first post on my new app, pretty cool huh?', user_id=1)
-p2 = Post(title='I love my fiance', content="When it comes to guys, I don't think I could have found a better man. He takes such good care of me", user_id=2)
-p3 = Post(title='My Second Post', content='I wonder if anybody is actually reading this?', user_id=1)
-p4 = Post(title='Test Post', content='This post is for the test user. Just making sure everything works =)', user_id=3)
+p1 = Post(title='My First Post', content='This is the first post on my new app, pretty cool huh?', created_at=datetime.now(), user_id=1)
+p2 = Post(title='I love my fiance', content="When it comes to guys, I don't think I could have found a better man. He takes such good care of me", created_at=datetime.now(), user_id=2)
+p3 = Post(title='My Second Post', content='I wonder if anybody is actually reading this?', created_at=datetime.now(), user_id=1)
+p4 = Post(title='Test Post', content='This post is for the test user. Just making sure everything works =)', created_at=datetime.now(), user_id=3)
 
 db.session.add(u1)
 db.session.add(u2)

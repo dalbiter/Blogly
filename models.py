@@ -22,6 +22,8 @@ class User(db.Model):
         u = self
         return f"User<User ID={u.id}, first name={u.first_name}, last name={u.last_name}, image={u.image_url}>"
     
+    # add method for full name
+    
 class Post(db.Model):
     """Post model"""
 

@@ -10,9 +10,9 @@
 
 {% block content %}
     <form action="/users/{{user.id}}/posts/new" method="POST">
-        Title <input type="text">
+        Title <input type="text" name="title">
         <br>
-        Content <input type="text">
+        Content <input type="text" name="content">
         <br>
         <button id="add_post">Add</button>
     </form>
