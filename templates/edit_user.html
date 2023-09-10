@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>
+    <!-- <p>
         <form action="/users/{{user.id}}/edit" method="POST" name="edit_user_form">
         First Name <input type="text" name="first_name" placeholder="{{user.first_name}}">
         <br>    
@@ -22,5 +22,33 @@
         <form action="/users/{{user.id}}">
             <button id="cancel_edit_button">Cancel</button>
         </form>
-    </p>
+    </p> -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 border shadow rounded p-4">
+                <form action="/users/{{user.id}}/edit" method="POST">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" placeholder="{{user.first_name}}" class="form-control" id="first_name" name="first_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" placeholder="{{user.last_name}}" class="form-control" id="last_name" name="last_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Image URL</label>
+                        <input type="text" placeholder="Update image URL" class="form-control" id="img_url" name="img_url">
+                    </div>
+                    <div class="form-group">
+                        <div class="ml-auto mr-3">
+                            <a href="/users/{{user.id}}" class="btn btn-warning">
+                                Cancel
+                            </a>
+                            <button class="btn btn-info">Edit User</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

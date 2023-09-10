@@ -5,25 +5,43 @@
 {% endblock %}
 
 {% block content %}
-    <img src="{{user.image_url}}" alt="" id="profile_pic" height="125px" width="125px">
-    <form action="/users/{{user.id}}/edit">
-        <button>Edit</button>
-    </form>
-    <form action="/users/{{user.id}}/delete" method="POST">
-        <button>DELETE</button>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="{{user.image_url}}" alt="" class="img-fluid border">
+        </div>
+        <div class="col-2 col-lg-3">
+            <form>
+                <button class="btn btn-secondary" formmethod="POST" formaction="/users/{{user.id}}/delete">Delete</button>
+                <button class="btn btn-info" formaction="/users/{{user.id}}/edit">Edit User</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <section class="user_posts">
-        <h3>Posts</h3>
-        <ul id="posts">
-            {% for post in posts %}
-                <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
-            {% endfor %}
-        </ul>
-        <form action="/users/{{user.id}}/posts/new">
-            <button>Add Post</button>
-        </form>
-    </section>
+<hr>
 
+<div class="container">
+    <h3 class="text-center mb-4">{{user.first_name}}'s Posts</h3>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-6 col-lg-3">
+            <div class="card border shadow rounded">
+                <div class="card-body text-center">
+                    <h5 class="card-title">
+                        <a href="/posts/{{post.id}}">{{post.title}}</a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <form action="/users/{{user.id}}/posts/new" >
+        <button class="btn btn-success">Add Post</button>
+    </form>
+</div>
 {% endblock %}
 

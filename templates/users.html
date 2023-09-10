@@ -21,21 +21,16 @@
         <div class="row">
             {% for user in users %}
             <div class="col-6 col-lg-4">
-                <div class="card">
-                    <img src="{{user.image_url}}" alt="" class="card-img-top">
-                    <div class="card-body">
+                <a href="/users/{{user.id}}"><div class="card mb-3 border shadow">
+                    <img src="{{user.image_url}}" alt="" class="card-img-top" height="250px">
+                    <div class="card-body text-center">
                         <h5 class="card-title">
-                            <a href="/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>    
+                            {{user.first_name}} {{user.last_name}}   
                         </h5>
                     </div>    
-                </div>
+                </div></a>
             </div>
             {% endfor %}
         </div>
     </div>
-    <p>
-        <form action="/users/new">
-            <button>Add user</button>
-        </form>
-    </p>
 {% endblock %}

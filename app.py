@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import text
 from models import db, connect_db, User, Post
-from datetime import datetime
+from datetime import datetime 
 
 app = Flask(__name__)
 

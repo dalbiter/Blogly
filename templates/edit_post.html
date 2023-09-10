@@ -9,16 +9,28 @@
 {% endblock %}
 
 {% block content %}
-    <p>
-        <form action="/posts/{{post.id}}/edit" method="POST" name="edit_post_form">
-        Title <input type="text" name="title" placeholder="{{post.title}}">
-        <br>    
-        Content <input type="text" name="content" placeholder="{{post.content}}">
-        <br>   
-        <button class="btn btn-info">Edit Post</button>    
-        </form>
-        <form action="/users/{{post.user.id}}">
-            <button id="cancel_edit_button">Cancel</button>
-        </form>
-    </p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 border shadow rounded p-4">
+                <form action="/posts/{{post.id}}/edit" method="POST">
+                    <div class="form-group">
+                        <label for="title">Update post title</label>
+                        <input type="text" placeholder="{{post.title}}" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Update post content</label>
+                        <textarea class="form-control" name="content" id="content" cols="30" rows="10">{{post.content}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="ml-auto mr-3">
+                            <a href="/posts/{{post.id}}" class="btn btn-warning">
+                                Cancel
+                            </a>
+                            <button class="btn btn-info">Edit Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

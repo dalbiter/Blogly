@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block h1 %}
-    {{post.title}}
+    {{post.user.first_name}}'s Post
 {% endblock %}
 
 {% block content %}
-    <div class="post_content">
+    <!-- <div class="post_content">
     <p>
         {{post.content}}
     </p>
@@ -22,5 +22,22 @@
         <form action="/posts/{{post.id}}/delete" method="POST">
             <button>Delete</button>
         </form>
-    </div>
+    </div> -->
+<div class="jumbotron">
+    <h1 class="display-4">
+        {{post.title}}
+    </h1>
+    <footer><i>By <a href="/users/{{post.user.id}}">{{post.user.first_name}} {{post.user.last_name}}</a></i></footer>
+
+    <hr>
+
+    <p class="mb-5">
+        {{post.content}}
+    </p>
+
+    <form>
+        <button class="btn btn-secondary" formmethod="POST" formaction="/posts/{{post.id}}/delete">Delete</button>
+        <button class="btn btn-info" formaction="/posts/{{post.id}}/edit">Edit</button>
+    </form>
+</div>
 {% endblock %}
