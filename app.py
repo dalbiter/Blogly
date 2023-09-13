@@ -104,7 +104,9 @@ def new_post_form(user_id):
     """show form to add new post for current user"""
 
     user = db.session.get(User, user_id)
-    return render_template('/new_post.html', user=user)
+    tags = Tag.query.all()
+
+    return render_template('/new_post.html', user=user, tags=tags)
 
 ######################################################################################
 
@@ -116,8 +118,14 @@ def add_new_post(user_id):
     user = db.session.get(User, user_id)
     title = request.form['title']
     content = request.form['content']
-
+    tags = request.form.getlist('tag-check')
+    
     new_post = Post(title=title, content=content, created_at=datetime.now(), user_id=user_id)
+
+    if tags:
+        for t in tags:
+            tag = Tag.query.filter_by(name=t).first() 
+            new_post.tags.append(tag)
 
     db.session.add(new_post)
     db.session.commit()
@@ -136,7 +144,9 @@ def edit_post_form(post_id):
     """show edit post form"""
 
     post = db.session.get(Post, post_id)
-    return render_template('edit_post.html', post=post)
+    tags = Tag.query.all()
+
+    return render_template('edit_post.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
@@ -147,9 +157,15 @@ def edit_post(post_id):
     title = title if title else post.title
     content = request.form['content']
     content = content if content else post.content
+    tags = request.form.getlist('tag-check')
+    tags = tags if tags else post.tags
 
     post.title = title
     post.content = content
+    for t in tags:
+        tag = Tag.query.filter_by(name=t).first()
+        if tag not in post.tags:
+            post.tags.append(tag)
 
     db.session.add(post)
     db.session.commit()
