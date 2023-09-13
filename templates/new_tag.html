@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blogly New Tag    
+{% endblock %} 
+
+{% block h1 %}
+    Create a new tag
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6 border shadow rounded p-4">
+            <form action="/tags/new" method="POST">
+                <div class="form-group">
+                    <label for="tag">Name</label>
+                    <input type="text" placeholder="Tag name" class="form-control" id="tag" name="tag">
+                </div>
+                <div class="form-group">
+                    <div class="ml-auto mr-3">
+                        <a href="/tags" class="btn btn-warning">
+                            Cancel
+                        </a>
+                        <button class="btn btn-info">Add Tag</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

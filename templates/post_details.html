@@ -20,7 +20,11 @@
     <p class="mb-5">
         {{post.content}}
     </p>
-
+    {% for tag in tags %}
+        <a href="/tags/{{tag.id}}"><h6 class="badge badge-pill badge-primary">{{tag.name}}</h6></a>
+    {% endfor %}
+</div>
+<div class="container">
     <form>
         <button class="btn btn-secondary" formmethod="POST" formaction="/posts/{{post.id}}/delete">Delete</button>
         <button class="btn btn-info" formaction="/posts/{{post.id}}/edit">Edit</button>

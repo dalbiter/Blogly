@@ -1,28 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Blogly Current Users
+    Blogly Tags
 {% endblock %}
     
 {% block h1 %}
-    Current Users
+    Tags
 {% endblock %}
 
 {% block content %}
     <div class="contiainer">
         <div class="row">
-            {% for user in users %}
-            <div class="col-6 col-lg-4">
-                <a href="/users/{{user.id}}"><div class="card mb-3 border shadow">
-                    <img src="{{user.image_url}}" alt="" class="card-img-top" height="250px" id="profile_pic">
+            {% for tag in tags %}
+            <div class="col-6 col-lg-2">
+                <a href="/tags/{{tag.id}}"><div class="card mb-3 border shadow">
                     <div class="card-body text-center">
                         <h5 class="card-title">
-                            {{user.first_name}} {{user.last_name}}   
+                            {{tag.name}}   
                         </h5>
                     </div>    
                 </div></a>
             </div>
             {% endfor %}
+        </div>
+        <div class="row ml-3">
+            <a href="/tags/new"><button class="btn btn-info">Add New Tag</button></a>
         </div>
     </div>
 {% endblock %}

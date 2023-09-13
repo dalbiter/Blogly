@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>{% block title %}{% endblock %}</title>
     <link rel="icon" type="image/png" href="/static/images/blogly_logo.png">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body class="bg-secondary">
 
     <nav class="navbar navbar-dark bg-dark">
         <a href="#" class="navbar-brand">
             <img src="/static/images/blogly_logo.png" alt="" width="30" height="30" class="d-inline-block align top">
             Blogly
         </a>
-        <a href="/" class=" nav-link mx-auto">Home</a>
-        <a href="/users/new" class="nav-link mx-auto">Add User</a>
-        <a href="/users" class="nav-link mx-auto">View Users</a>
+        <a href="/" class=" nav-link mx-auto text-white">Home</a>
+        <a href="/users" class="nav-link mx-auto text-white">View Users</a>
+        <a href="/users/new" class="nav-link mx-auto text-white">Add New User</a>
+        <a href="/tags" class="nav-link mx-auto text-white">View Tags</a>
+        <a href="/tags/new" class="nav-link mx-auto text-white">Add New Tag</a>
     </nav>
 
-    <div class="container text-center bg-primary rounded">
+    <div class="container text-center text-white bg-primary rounded">
         <h1>
             {% block h1 %}
             {% endblock %}
         </h1>
     </div>
 
-    <div class="container">
+    <div class="container rounded p-3 bg-white">
     {% block content %}
     {% endblock %}
     </div>
